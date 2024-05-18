@@ -10,7 +10,7 @@ import {
 const Login = () => {
 
      const URL = import.meta.env.VITE_URL_API;
-
+     const [isLoading, setIsLoading] = useState(false)
 
      const [data, setData] = useState({
           email: '',
@@ -21,12 +21,15 @@ const Login = () => {
           e.preventDefault();
           if (data.email && data.password) {
                try {
-                    console.log(URL);
+                    setIsLoading(true)
                     const response = await axios.post(`${URL}users/login`, data);
-                    console.log(response);
-                   
+                    setIsLoading(false);
+                    const user_id = response.data.id;
+                    sessionStorage.setItem('user_id', user_id);
+                    window.location.href = '/browse';
                } catch (error) {
                     console.log('Error:', error);
+                    setIsLoading(false);
                }
           }
      };
@@ -63,9 +66,10 @@ const Login = () => {
                          </Checkbox>
                          <a className='text-sm text-zinc-800 hover:text-violet-800 hover:underline cursor-pointer'> Forget Password ?</a>
                     </div>
-                    <Button isLoading={false} color={'white'} colorScheme={'yellow'} width={"100%"} variant='solid' type="submit">
+                    <Button isLoading={isLoading} py={'8px'} color={'white'} colorScheme={'yellow'} width={"100%"} className='px-3' variant='solid' type="submit">
                          Login
                     </Button>
+                   
                     <p className='text-sm'>By creating an account, you agree to our <span className='text-blue-700'>Terms and Service</span> and <span className='text-blue-700'>Privacy Policy</span></p>
                </form>
           </div>

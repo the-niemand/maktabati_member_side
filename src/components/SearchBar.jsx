@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { toggleOnSearch } from '../../redux/Slice';
 
 function SearchBar({ showFilter, setShowFilter }) {
   const [searchFieldValue, setSearchFieldValue] = useState('');
+  const dispatch = useDispatch()
+
+  const handleSearch = () => {
+    dispatch(toggleOnSearch());
+  };
 
   const clearInput = () => {
     setSearchFieldValue('');
   };
-
 
   return (
     <div className='flex w-full space-x-4'>
@@ -14,7 +20,7 @@ function SearchBar({ showFilter, setShowFilter }) {
         className={`w-full pl-5 pr-2.5 py-2 bg-white rounded-full shadow-search justify-start border items-center flex space-x-4 `}
       >
         {/* //filter icon */}
-        <div onClick={()=>{setShowFilter(!showFilter)}}>
+        <div onClick={() => { setShowFilter(!showFilter) }}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -51,6 +57,7 @@ function SearchBar({ showFilter, setShowFilter }) {
         <button
           type="submit"
           className="w-fit px-2 py-0.5 border-2 border-yellow-400 bg-yellow-400 text-[13px] font-medium font-Poppins text-white rounded-full hover:bg-transparent hover:text-yellow-400 font-semibold transition ease-out duration-250"
+          onClick={handleSearch}
         >
           Search
         </button>

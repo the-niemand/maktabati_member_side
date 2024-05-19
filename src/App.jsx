@@ -3,10 +3,12 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom';
 import Auth from './pages/auth';
 import Main from './pages/mainPage';
-import Browse from './pages/books/browse';
+import Browse from './pages/browse/browse';
 import Catalog from './pages/catalog/catalog';
 import Saved from './pages/saved/saved';
 import About from './pages/about/about';
+import { Provider } from 'react-redux';
+import store from '../redux/store';
 
 // Define the Chakra UI theme
 const themeChakra = extendTheme({
@@ -37,7 +39,7 @@ function App() {
       <Route
         path="/"
         element={
-            <Main />
+          <Main />
         }
       >
         <Route path="browse" element={<Browse />} />
@@ -50,11 +52,11 @@ function App() {
   ));
 
   return (
-    <ChakraProvider theme={themeChakra}>
-      
+    <Provider store={store}>
+      <ChakraProvider theme={themeChakra}>
         <RouterProvider router={router} />
-     
-    </ChakraProvider>
+      </ChakraProvider>
+    </Provider>
   );
 }
 

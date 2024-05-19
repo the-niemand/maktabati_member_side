@@ -7,6 +7,7 @@ const FilterAndSearch = () => {
      const [categories, setCategories] = useState([]);
      const [showFilter, setShowFilter] = useState(false);
 
+
      const handleCategorySelect = (categories) => {
           setCategories(categories);
      };
@@ -25,7 +26,7 @@ const FilterAndSearch = () => {
                     <SearchBar showFilter={showFilter} setShowFilter={setShowFilter} />
                </div>
 
-               <div className={`grid overflow-hidden transition-all duration-300 ease-in-out ${showFilter ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+               <div className={`grid overflow-hidden transition-all duration-300 ease-in-out ${showFilter ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr]'}`}>
                     <div className={`flex px-8 gap-4 items-start justify-between overflow-hidden`}>
                          <div className='flex flex-col items-start gap-3'>
                               <p className='text-[14px] font-bold'>Sort By</p>

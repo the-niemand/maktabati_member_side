@@ -19,7 +19,7 @@ const Book = ({ title, authors, img }) => {
       </div>
       <div className='flex justify-between items-center'>
         <div className='flex flex-col'>
-          <h1 className='font-extra font-Poppins w-[100px] overflow-hidden overflow-ellipsis whitespace-nowrap'>{title}</h1>
+          <h1 className='font-extra font-Poppins w-[100px] overflow-hidden overflow-ellipsis whitespace-nowrap' title={title}>{title}</h1>
           <p className='text-[11px] font-bold font-Mulish w-[100px] overflow-hidden overflow-ellipsis whitespace-nowrap' title={handleAuthors()}>
             By {handleAuthors()}
           </p>

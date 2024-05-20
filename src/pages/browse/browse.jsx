@@ -4,14 +4,19 @@ import Container from '@mui/material/Container';
 import { Typography } from '@mui/material';
 import FilterAndSearch from '../../components/FilterAndSearch';
 import { css } from '@emotion/react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Books from '../../components/books';
+import { setHasToggled } from '../../../redux/Slice';
+
 
 function Browse() {
   const onSearch = useSelector(state => state.books.onSearch);
-  const [hasToggled, setHasToggled] = useState(false);
+  const hasToggled = useSelector(state => state.books.hasToggled);
+  const dispatch = useDispatch()
   const [showBooks, setShowBooks] = useState(false);
+  
 
+  
   const containerStyles = css`
     transition: margin-top 0.5s ease-in-out;
     margin-top: ${hasToggled && onSearch ? '-18rem' : '0'};
@@ -19,7 +24,7 @@ function Browse() {
 
   useEffect(() => {
     if (onSearch) {
-      setHasToggled(true);
+      dispatch(setHasToggled(true))
       const timer = setTimeout(() => {
         setShowBooks(true);
       }, 500); // Wait for the transition to complete (0.5s)
@@ -27,14 +32,14 @@ function Browse() {
       return () => clearTimeout(timer); // Cleanup the timeout if onSearch changes
     } else {
       setShowBooks(false);
-      setHasToggled(false);
+      dispatch(setHasToggled(false))
     }
   }, [onSearch]);
 
   return (
     <Container
       maxWidth="lg"
-      sx={{ mt: 8, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "2rem" , pb:"500px"}}
+      sx={{ mt: 8, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "2rem", pb: "500px" }}
     >
       <div css={containerStyles} className='flex flex-col items-center justify-center gap-6'>
         <Typography

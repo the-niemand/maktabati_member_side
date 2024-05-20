@@ -24,8 +24,7 @@ const Dropdown = ({ name, dropdownItems, onSelect, direction }) => {
      }, []);
 
      return (
-          <div className={`relative flex flex-col gap-2 w-full`} ref={dropdownRef}>
-
+          <div className="flex flex-col gap-2 w-full" ref={dropdownRef}>
                <button
                     className="border w-full text-neutral-600 border-neutral-300 font-bold py-1.5 px-4 rounded-md flex justify-between items-center"
                     onClick={toggleDropdown}
@@ -47,16 +46,18 @@ const Dropdown = ({ name, dropdownItems, onSelect, direction }) => {
                     </svg>
                </button>
 
-               <div className={` ${isOpen ? "block" : "hidden"}  w-full absolute ${ direction=="right" ? "left-0" : "right-0"} top-12 text-zinc-800 p-3 rounded border border-neutral-300 flex space-x-4`}>
+               <div className={`w-full ${isOpen ? "flex" : "hidden"} ${direction === "right" ? "flex-col items-start" : "flex-col items-end"} text-zinc-800 p-3 rounded border border-neutral-300`}>
                     <ul className="w-full">
                          {dropdownItems.map((item, index) => (
                               <li
                                    className="cursor-pointer hover:bg-gray-200 rounded py-2 px-4 truncate w-full"
                                    key={index}
                                    onClick={() => {
+                                        console.log("Item clicked:", item); // Log the item clicked
                                         setSelected(item);
-                                        onSelect(item); 
-                                        setIsOpen(false);
+                                        onSelect(item);
+                                        setIsOpen(false); // Ensure this sets isOpen to false
+                                        console.log("Dropdown state after click:", isOpen); // Log the state
                                    }}
                               >
                                    {item}
@@ -68,4 +69,4 @@ const Dropdown = ({ name, dropdownItems, onSelect, direction }) => {
      );
 };
 
-export default Dropdown
+export default Dropdown;

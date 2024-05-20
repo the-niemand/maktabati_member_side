@@ -1,6 +1,5 @@
-
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
-import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from 'react-router-dom';
+import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route, Navigate } from 'react-router-dom';
 import Auth from './pages/auth';
 import Main from './pages/mainPage';
 import Browse from './pages/browse/browse';
@@ -29,19 +28,12 @@ const themeChakra = extendTheme({
   },
 });
 
-// Define the MUI theme
-
-
 function App() {
   // Define the routes using React Router
   const router = createBrowserRouter(createRoutesFromElements(
     <>
-      <Route
-        path="/"
-        element={
-          <Main />
-        }
-      >
+      <Route path="/" element={<Navigate to="/browse" replace />} />
+      <Route path="/" element={<Main />}>
         <Route path="browse" element={<Browse />} />
         <Route path="catalog" element={<Catalog />} />
         <Route path="saved" element={<Saved />} />

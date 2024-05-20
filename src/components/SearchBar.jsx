@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleOnSearch } from '../../redux/Slice';
 
-function SearchBar({ showFilter, setShowFilter }) {
+function SearchBar({ showFilter, setShowFilter, handleSearchValue }) {
   const [searchFieldValue, setSearchFieldValue] = useState('');
   const dispatch = useDispatch()
 
   const handleSearch = () => {
+    if (searchFieldValue == "") {
+      return;
+    }
     dispatch(toggleOnSearch());
+    handleSearchValue(searchFieldValue)
   };
 
   const clearInput = () => {

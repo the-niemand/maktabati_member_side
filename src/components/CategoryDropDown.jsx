@@ -40,7 +40,7 @@ const CategoryDropDown = ({ onSelect }) => {
                     {selectedItems.length !== 0 ? (
                          <div className="max-w-[100px] overflow-hidden text-ellipsis whitespace-nowrap">
                               {selectedItems.map((selectedItem, index) => (
-                                   <span key={index}>
+                                   <span key={index} className="font-bold text-neutral-600">
                                         {selectedItem} {index !== selectedItems.length - 1 ? "," : ""}
                                    </span>
                               ))}

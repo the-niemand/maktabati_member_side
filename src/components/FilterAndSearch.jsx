@@ -53,7 +53,7 @@ const FilterAndSearch = () => {
                     <div className={`flex px-8 gap-4 items-start justify-between overflow-hidden`}>
                          <div className='flex flex-col items-start gap-3'>
                               <p className='text-[14px] font-bold'>Sort By</p>
-                              <Dropdown name={'Popular'} onSelect={handleSetSortBy} dropdownItems={['Copies', 'Release']} direction={'right'} />
+                              <Dropdown name={'Popular'} onSelect={handleSetSortBy} dropdownItems={['copies', 'Release']} direction={'right'} />
                          </div>
                          <div className='flex gap-6'>
                               <div className='flex flex-col items-start gap-3'>

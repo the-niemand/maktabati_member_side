@@ -1,8 +1,26 @@
-import React from 'react'
+import { Container } from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import Categories from './Categories'
+import Popular from './Popular'
+import BestSeller from './BestSeller'
+import NewReleases from './NewReleases'
+import UpComming from './UpComming'
 
 const Catalog = () => {
+
+
+
   return (
-    <div>catalog</div>
+    <Container
+      maxWidth="lg"
+      sx={{ mt: 8, display: "flex", flexDirection: "column", justifyContent: "center", gap: "7rem" }}
+    >
+      <Categories />
+      <Popular />
+      <BestSeller />
+      <NewReleases />
+      <UpComming />
+    </Container>
   )
 }
 

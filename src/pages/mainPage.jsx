@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import { Outlet } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import NavigateBar from '../components/NavigateBar';
 
 const Main = () => {
 
@@ -22,9 +23,10 @@ const Main = () => {
 
     return (
         <ThemeProvider theme={themeMUI}>
-            <div className='flex flex-col'>
+            <div className='flex flex-col items-center'>
                 <Navbar />
                 <Outlet />
+                <NavigateBar />
             </div>
         </ThemeProvider>
     );

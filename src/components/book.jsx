@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
-const Book = ({ title, authors, img, showSave }) => {
+
+const Book = ({ book_id, title, authors, img, showSave }) => {
+
   const [saveIsOnHover, setSaveIsOnHover] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const URL = import.meta.env.VITE_URL_API;
+  const userID = sessionStorage.getItem("user_id");
 
   const handleAuthors = () => {
     if (authors && authors.length > 0) {
@@ -12,6 +17,33 @@ const Book = ({ title, authors, img, showSave }) => {
     }
   };
 
+
+  const handleSaveBook = async () => {
+    if (isSaved) {
+      try {
+        const data = {
+          book: book_id,
+          user: userID
+        }
+        const response = await axios.post(`${URL}save/deleteSavedById`, data);
+        alert("unsaved successfuly")
+      } catch (error) {
+        console.log('Error:', error);
+      }
+    } else {
+      try {
+        const data = {
+          book: key,
+          user: userID
+        }
+        const response = await axios.post(`${URL}save/createSaved`, data);
+        alert("saved successfuly")
+      } catch (error) {
+        console.log('Error:', error);
+      }
+    }
+    setIsSaved(!isSaved)
+  }
   return (
     <div className='h-fit cursor-pointer flex flex-col gap-3 rounded-md bg-white shadow-button p-3 border border-white hover:border-neutral-400 transition-color duration-100'>
       <div className='w-[180px] h-[250px] rounded-md overflow-hidden'>
@@ -20,7 +52,7 @@ const Book = ({ title, authors, img, showSave }) => {
       <div className='flex justify-between items-center'>
         <div className='flex flex-col'>
           <h1 className='font-extra font-Poppins w-[180px] overflow-hidden overflow-ellipsis whitespace-nowrap' title={title}>{title}</h1>
-          <p className={`text-[11px] font-bold font-Mulish ${showSave ? ("w-[100px]"):("w-[160px]") } overflow-hidden overflow-ellipsis whitespace-nowrap`} title={handleAuthors()}>
+          <p className={`text-[11px] font-bold font-Mulish ${showSave ? ("w-[100px]") : ("w-[160px]")} overflow-hidden overflow-ellipsis whitespace-nowrap`} title={handleAuthors()}>
             By {handleAuthors()}
           </p>
         </div>
@@ -28,7 +60,7 @@ const Book = ({ title, authors, img, showSave }) => {
           <div
             onMouseEnter={() => setSaveIsOnHover(true)}
             onMouseLeave={() => setSaveIsOnHover(false)}
-            onClick={() => setIsSaved(!isSaved)}
+            onClick={handleSaveBook}
             className="transition-opacity duration-150"
           >
             <div

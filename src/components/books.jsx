@@ -48,7 +48,7 @@ const Books = () => {
           booksData && booksData.length > 0 ? (
             <>
               {booksData.slice(firstPostIndex, lastPostIndex).map((book) => (
-                <Book  showSave={true} key={book._id} title={book.title} authors={book.authors} img={book.image} />
+                <Book showSave={true} key={book._id} book_id={book._id} title={book.title} authors={book.authors} img={book.image} />
               ))}
               {booksData.length > 8 && (
                 <div className='w-full flex items-center justify-center'>

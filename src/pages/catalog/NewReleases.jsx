@@ -14,8 +14,17 @@ const NewReleases = () => {
         const fetchData = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get(`${URL}books/fetchBooks`);
-                setBooksData(response.data.data);
+                const data = {
+                    sortBy: "release",
+                }
+                const response = await axios.post(`${URL}books/fetchFilteredBooks`, data);
+                const books = response.data.data.filter((book) => {
+                    if (book.status) {
+                        return book.status != "upcomming";
+                    }
+                    return book
+                })
+                setBooksData(books);
             } catch (error) {
                 console.log('Error:', error);
             } finally {
@@ -87,7 +96,6 @@ const NewReleases = () => {
                         style={{ width: '80%', margin: 'auto' }}
                     >
                         {booksData
-                            .sort((a, b) => new Date(a.createdDate) - new Date(b.createdDate))
                             .slice(0, 10)
                             .map((book) => (
                                 <Book

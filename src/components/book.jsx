@@ -23,7 +23,7 @@ const Book = ({ book_id, title, authors, img, showSave }) => {
           userId: userID,
           bookId: book_id
         }
-        const response = await axios.get(`${URL}/users/checkIsSaved/${data.userId}/${data.bookId}`);
+        const response = await axios.get(`${URL}users/checkIsSaved/${data.userId}/${data.bookId}`);
         setIsSaved(response.data.data)
         setSaveIsOnHover(false)
         setIsLoading(false)
@@ -70,7 +70,7 @@ const Book = ({ book_id, title, authors, img, showSave }) => {
           bookId: book_id,
           userId: userID
         }
-        const response = await axios.get(`${URL}/users/RemoveSaved/${data.userId}/${data.bookId}`);
+        const response = await axios.get(`${URL}users/RemoveSaved/${data.userId}/${data.bookId}`);
         setIsSaved(false);
       } catch (error) {
         console.log('Error:', error);
@@ -87,7 +87,7 @@ const Book = ({ book_id, title, authors, img, showSave }) => {
           bookId: book_id,
           userId: userID
         }
-        const response = await axios.get(`${URL}/users/Saved/${data.userId}/${data.bookId}`);
+        const response = await axios.get(`${URL}users/Saved/${data.userId}/${data.bookId}`);
         setIsSaved(true);
       } catch (error) {
         console.log('Error:', error);

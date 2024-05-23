@@ -39,7 +39,7 @@ const Books = () => {
       <div>
         <h1 className='font-Poppins text-[18px]'>search for <span className='font-extra text-[24px]'>{searchValue}</span></h1>
       </div>
-      <div className='flex gap-12 w-full flex-wrap justify-center'>
+      <div className='flex gap-10 w-full flex-wrap justify-center'>
         {isLoading ? (
           Array.from({ length: 8 }).map((_, index) => (
             <BooksLoading key={index} />

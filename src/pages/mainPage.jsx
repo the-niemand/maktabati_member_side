@@ -17,6 +17,9 @@ const Main = () => {
             secondary: {
                 main: "#fff"
             },
+            third:{
+                main:'#404040'
+            }
         },
         spacing: 8,
     });

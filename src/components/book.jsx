@@ -29,6 +29,7 @@ const Book = ({ book_id, title, authors, img, showSave }) => {
         setIsLoading(false)
       } catch (error) {
         console.log(error)
+        notify()
       }
     }
     checkIfSaved()
@@ -42,9 +43,6 @@ const Book = ({ book_id, title, authors, img, showSave }) => {
       return "unknown";
     }
   };
-
-
-
 
   const notify = () => toast.error('Your not currently logged', {
     position: "bottom-right",

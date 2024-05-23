@@ -37,45 +37,53 @@ const Books = () => {
   return (
     <>
       <div>
-        <h1 className='font-Poppins text-[18px]'>search for <span className='font-extra text-[24px]'>{searchValue}</span></h1>
+        <h1 className='font-Poppins text-[18px]'>
+          Search for <span className='font-extra text-[24px]'>{searchValue}</span>
+        </h1>
       </div>
-      <div className='flex gap-10 w-full flex-wrap justify-center'>
+      <div className={`flex ${booksData?.length > 1 || isLoading ? "gap-10" : ""} w-full flex-wrap items-center justify-center`}>
         {isLoading ? (
           Array.from({ length: 8 }).map((_, index) => (
             <BooksLoading key={index} />
           ))
-        ) : (
-          booksData && booksData.length > 0 ? (
-            <>
-              {booksData.slice(firstPostIndex, lastPostIndex).map((book) => (
-                <Book showSave={true} key={book._id} book_id={book._id} title={book.title} authors={book.authors} img={book.image} />
-              ))}
-              {booksData.length > 8 && (
-                <div className='w-full flex items-center justify-center'>
-                  <Pagination
-                    totalPosts={booksData.length}
-                    postsPerPage={postsperpage}
-                    setCurrentPage={setCurrentPage}
-                    currentPage={currentPage}
-                  />
-                </div>
-              )}
-            </>
-          ) : (
-            !isLoading && (
-              <div id="notFound" className='w-full flex flex-col items-center justify-center gap-4'>
-                <img src={Notfound} className='w-[20%]' alt="Not found" />
-                <div className='py-3 px-6 rounded-md bg-red-600 flex gap-4 items-center justify-center'>
-                  <img src={IconNotFound} className='w-7' />
-                  <h1 className='text-white font-Poppins font-bold text-[20px]'>There is no book with such name</h1>
-                </div>
+        ) : booksData?.length > 0 ? (
+          <>
+            {booksData.slice(firstPostIndex, lastPostIndex).map((book) => (
+              <Book
+                showSave={true}
+                key={book._id}
+                book_id={book._id}
+                title={book.title}
+                authors={book.authors}
+                img={book.image}
+              />
+            ))}
+            {booksData.length > 8 && (
+              <div className='w-full flex items-center justify-center'>
+                <Pagination
+                  totalPosts={booksData.length}
+                  postsPerPage={postsperpage}
+                  setCurrentPage={setCurrentPage}
+                  currentPage={currentPage}
+                />
               </div>
-            )
-          )
+            )}
+          </>
+        ) : (
+          <div id="notFound" className='w-full flex flex-col items-center justify-center gap-4'>
+            <img src={Notfound} className='w-[20%]' alt="Not found" />
+            <div className='py-3 px-6 rounded-md bg-red-600 flex gap-4 items-center justify-center'>
+              <img src={IconNotFound} className='w-7' />
+              <h1 className='text-white font-Poppins font-bold text-[20px]'>
+                There is no book with such name
+              </h1>
+            </div>
+          </div>
         )}
       </div>
     </>
   );
+
 };
 
 

@@ -32,7 +32,9 @@ const Book = ({ book_id, title, authors, img, showSave }) => {
         notify()
       }
     }
-    checkIfSaved()
+    if (book_id && userID) {
+      checkIfSaved()
+    }
   }, [])
 
 

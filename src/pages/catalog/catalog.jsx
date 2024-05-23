@@ -15,7 +15,6 @@ const Catalog = () => {
       maxWidth="lg"
       sx={{ mt: 8, display: "flex", flexDirection: "column", justifyContent: "center", gap: "7rem" }}
     >
-      <Categories />
       <Popular />
       <BestSeller />
       <NewReleases />

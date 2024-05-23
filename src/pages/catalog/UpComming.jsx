@@ -13,8 +13,11 @@ const UpComming = () => {
      useEffect(() => {
           const fetchData = async () => {
                try {
+                    const query = {
+                         status: "upcomming"
+                    }
                     setIsLoading(true);
-                    const response = await axios.get(`${URL}books/fetchBooks`);
+                    const response = await axios.post(`${URL}books/fetchFilteredBooks`, query);
                     setBooksData(response.data.data);
                } catch (error) {
                     console.log('Error:', error);
@@ -36,20 +39,20 @@ const UpComming = () => {
                breakpoint: { max: 1024, min: 464 },
                items: 2,
                slidesToSlide: 2,
-               partialVisibilityGutter: 10 
+               partialVisibilityGutter: 10
           },
           mobile: {
                breakpoint: { max: 464, min: 0 },
                items: 1,
                slidesToSlide: 1,
-               partialVisibilityGutter: 10 
+               partialVisibilityGutter: 10
           }
      };
 
      return (
           <div style={{ maxWidth: '100%', overflow: 'hidden' }} className='flex flex-col gap-5'>
                <h1 className='text-[23px] font-Poppins font-extra ml-2'>
-               UpComming Books
+                    UpComming Books
                </h1>
                {isLoading ? (
                     <Carousel

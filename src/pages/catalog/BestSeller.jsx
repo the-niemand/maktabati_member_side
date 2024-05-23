@@ -91,8 +91,8 @@ const BestSeller = () => {
                               deviceType="desktop"
                               style={{ width: '80%', margin: 'auto' }}
                          >
-                              {booksData.map((book) => (
-                                   <Book showSave={false} key={book._id} title={book.title} authors={book.author_name} img={`http://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`} />
+                              {booksData.map((book , index) => (
+                                   <Book key={index} showSave={false} title={book.title} authors={book.author_name} img={`http://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`} />
                               ))}
                          </Carousel>
                     )

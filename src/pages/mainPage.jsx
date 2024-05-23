@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import { Outlet } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import NavigateBar from '../components/NavigateBar';
+import Footer from '../components/footer';
 
 const Main = () => {
 
@@ -17,8 +18,8 @@ const Main = () => {
             secondary: {
                 main: "#fff"
             },
-            third:{
-                main:'#404040'
+            third: {
+                main: '#404040'
             }
         },
         spacing: 8,

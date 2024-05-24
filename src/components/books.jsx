@@ -56,6 +56,7 @@ const Books = () => {
                 title={book.title}
                 authors={book.authors}
                 img={book.image}
+                book={book}
               />
             ))}
             {booksData.length > 8 && (

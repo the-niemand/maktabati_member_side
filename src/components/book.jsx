@@ -1,42 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import { addData } from '../../redux/Slice';
+import { Toaster, toast } from 'sonner';
 
-
-const Book = ({ book_id, title, authors, img, showSave }) => {
-
+const Book = ({ book_id, title, authors, img, showSave, book }) => {
   const userID = sessionStorage.getItem("user_id");
   const URL = import.meta.env.VITE_URL_API;
   const [saveIsOnHover, setSaveIsOnHover] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const checkIfSaved = async () => {
       try {
-        setSaveIsOnHover(true)
-        setIsLoading(true)
+        setSaveIsOnHover(true);
+        setIsLoading(true);
         const data = {
           userId: userID,
-          bookId: book_id
-        }
+          bookId: book_id,
+        };
         const response = await axios.get(`${URL}users/checkIsSaved/${data.userId}/${data.bookId}`);
-        setIsSaved(response.data.data)
-        setSaveIsOnHover(false)
-        setIsLoading(false)
+        setIsSaved(response.data.data);
+        setSaveIsOnHover(false);
+        setIsLoading(false);
       } catch (error) {
-        console.log(error)
-        notify()
+        console.log(error);
       }
-    }
+    };
     if (book_id && userID) {
-      checkIfSaved()
+      checkIfSaved();
     }
-  }, [])
-
+  }, [book_id, userID, URL]);
 
   const handleAuthors = () => {
     if (authors && authors.length > 0) {
@@ -46,64 +44,41 @@ const Book = ({ book_id, title, authors, img, showSave }) => {
     }
   };
 
-  const notify = () => toast.error('Your not currently logged', {
-    position: "bottom-right",
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    pauseOnHover: false,
-    draggable: false,
-    progress: undefined,
-    theme: "colored",
-  });
-
-
-  const handleSaveBook = async () => {
-
-    if (isSaved) {
-
-      try {
-
-        setSaveIsOnHover(true)
-        setIsLoading(true)
-        const data = {
-          bookId: book_id,
-          userId: userID
-        }
-        const response = await axios.get(`${URL}users/RemoveSaved/${data.userId}/${data.bookId}`);
-        setIsSaved(false);
-      } catch (error) {
-        console.log('Error:', error);
-      } finally {
-        setSaveIsOnHover(false)
-        setIsLoading(false)
-      }
-
+  const handleSaveBook = async (event) => {
+    event.stopPropagation(); // Stop event propagation
+    if (!userID) {
+      toast.error('You are not currently logged in');
     } else {
       try {
-        setSaveIsOnHover(true)
-        setIsLoading(true)
+        setSaveIsOnHover(true);
+        setIsLoading(true);
         const data = {
           bookId: book_id,
-          userId: userID
+          userId: userID,
+        };
+        if (isSaved) {
+          await axios.get(`${URL}users/RemoveSaved/${data.userId}/${data.bookId}`);
+          setIsSaved(false);
+        } else {
+          await axios.get(`${URL}users/Saved/${data.userId}/${data.bookId}`);
+          setIsSaved(true);
         }
-        const response = await axios.get(`${URL}users/Saved/${data.userId}/${data.bookId}`);
-        setIsSaved(true);
       } catch (error) {
         console.log('Error:', error);
-        notify()
       } finally {
-        setSaveIsOnHover(false)
-        setIsLoading(false)
+        setSaveIsOnHover(false);
+        setIsLoading(false);
       }
     }
+  };
 
-  }
-
+  const handleBookClick = () => {
+    dispatch(addData(book));
+  };
 
   return (
     <>
-      <div className='h-fit cursor-pointer flex flex-col gap-3 rounded-md bg-white shadow-button p-3 border border-white hover:border-neutral-400 transition-color duration-100'>
+      <div onClick={handleBookClick} className='h-fit cursor-pointer flex flex-col gap-3 rounded-md bg-white shadow-button p-3 border border-white hover:border-neutral-400 transition-color duration-100'>
         <div className='w-[180px] h-[250px] rounded-md overflow-hidden'>
           <img className="w-full h-full object-cover" src={img} alt="Book Cover" />
         </div>
@@ -134,14 +109,12 @@ const Book = ({ book_id, title, authors, img, showSave }) => {
                     </svg>
                   )
                 }
-
               </div>
             </div>
           )}
-
         </div>
       </div>
-      <ToastContainer />
+      <Toaster expand={false} position="bottom-right" richColors />
     </>
   );
 };

@@ -4,7 +4,7 @@ const initialState = {
     onSearch: false,
     query: {},
     hasToggled: false,
-    data: [] // Assuming data is an array, initialize it accordingly.
+    selectedData: null,
 };
 
 export const bookSlice = createSlice({
@@ -21,7 +21,7 @@ export const bookSlice = createSlice({
             state.query = { ...state.query, ...action.payload };
         },
         addData: (state, action) => {
-            state.data = action.payload;
+            state.selectedData = action.payload;
         }
     }
 });
